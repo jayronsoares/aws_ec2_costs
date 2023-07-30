@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AWS Cloud Costs Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>AWS Cost Data</h1>
+    <table>
+        <tr>
+            <th>Service</th>
+            <th>Instance Type</th>
+            <th>Cost</th>
+        </tr>
+        {% for data in aws_cost_data %}
+        <tr>
+            <td>{{ data.Service }}</td>
+            <td>{{ data.Instance_Type }}</td>
+            <td>{{ data.Cost }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>CPU Metrics Data</h1>
+    <table>
+        <tr>
+            <th>Instance ID</th>
+            <th>Timestamp</th>
+            <th>CPU Utilization</th>
+            <th>Network In</th>
+            <th>Network Out</th>
+            <th>Memory Utilization</th>
+            <th>Volume Read Bytes</th>
+            <th>Volume Write Bytes</th>
+        </tr>
+        {% for data in cpu_metrics_data %}
+        <tr>
+            <td>{{ data.Instance_ID }}</td>
+            <td>{{ data.Timestamp }}</td>
+            <td>{{ data.CPU_Utilization }}</td>
+            <td>{{ data.NetworkIn }}</td>
+            <td>{{ data.NetworkOut }}</td>
+            <td>{{ data.MemoryUtilization }}</td>
+            <td>{{ data.VolumeReadBytes }}</td>
+            <td>{{ data.VolumeWriteBytes }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h1>Underutilized Instances</h1>
+    <table>
+        <tr>
+            <th>Instance ID</th>
+            <th>Average CPU Utilization</th>
+        </tr>
+        {% for data in underutilized_instances %}
+        <tr>
+            <td>{{ data.Instance_ID }}</td>
+            <td>{{ data.CPU_Utilization }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
